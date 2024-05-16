@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div>
+    {% for order in orders_in_cart %}
+    <div class="col">
+        <div class="d-flex gap-4">
+            <div>
+                {% if order.product.image %}
+                <img src="{{ order.product.image.url }}" width="150px" alt="Hollywood Sign on The Hill"/>
+                {% endif %}
+            </div>
+            <div>
+                <h5 class="card-title">{{ order.product.name }}</h5>
+                <h5>Category: {{ order.product.category }}</h5>
+                <p><b>Price: </b>{{ order.product.price }} $ {% if order.product.measurement.symbol %} / {{ order.product.measurement.symbol }} {% endif %}</p>
+                <a href="{% url 'detail' order.product.pk %}" class="btn btn-secondary">Remove From Cart</a>
+            </div>
+            <div>
+                    <div>
+                        <label class="mb-2 d-block">Available:</label>
+                        <div class="input-group mb-1" style="width: 170px;">
+                            <p>{{ order.product.quantity.normalize }}</p>
+                        </div>
+                    </div>
+                    <!-- col.// -->
+                    <div >
+                        <label class="mb-2 d-block">Quantity:</label>
+                        <div class="d-flex gap-3 align-items-center" style="width: 170px;">
+                            <a href="{% url 'cart_action' order.product.pk 'remove'%}" class="btn btn-white border border-secondary px-3" type="button" id="button-addon1" data-mdb-ripple-color="dark">
+                                <i class="fas fa-minus"></i>
+                            </a>
+                            <p class="btn btn-white border" style="font-size: 1.2rem">{{ order.product_quantity.normalize }}</p>
+                            <a href="{% url 'cart_action' order.product.pk 'add'%}" class="btn btn-white border border-secondary px-3" type="button" id="button-addon2" data-mdb-ripple-color="dark">
+                                <i class="fas fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock main%}

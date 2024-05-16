@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container">
+
+    {% for category in categories %}
+      <a href="#">{{ category.name }}</a>
+    {% endfor %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for product in products %}
+            <div class="col">
+            <div class="card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="Hollywood Sign on The Hill"/>
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <h5>Category: {{ product.category }}</h5>
+                    <p><b>Price: </b>{{ product.price }} $ {% if product.measurement.symbol %} / {{ product.measurement.symbol }} {% endif %}</p>
+                    <a href="{% url 'detail' product.pk %}" class="btn btn-secondary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock main %}
